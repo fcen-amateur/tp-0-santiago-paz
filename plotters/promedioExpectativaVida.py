@@ -5,21 +5,18 @@ esperanza_vida = gapminder.groupby([ 'year','continent'])['lifeExp'].mean().unst
 
 def plot():
     figura = (
-        so.Plot(
-            esperanza_vida,
-            "year",
-            esperanza_vida["Africa"],
-        )
-        .add(so.Dot())
-        .add(so.Line(), so.PolyFit())
+        so.Plot(gapminder, "year", "lifeExp")
+        .add(so.Line(), so.Agg("mean"), color="continent")
         .label(
-            title="Expectativa de vida en África",
+            title="Promedio de la expectativa de vida en función del año",
             x="Año",
             y="Expectativa de vida",
+            color="Continente"
         )
+        .layout(size=(6,6))
     )
     return dict(
-        descripcion="Media de vida en países de África a lo largo del tiempo",
+        descripcion="Promedio de la expectativa de vida en función del año",
         autor="Santiago Paz",
         figura=figura,
     )
